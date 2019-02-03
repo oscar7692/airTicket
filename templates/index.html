@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block index %}
+{% block index %} {{ comment }}
 
 <!-- Banner -->
 <section id="banner" class="major">
@@ -88,6 +88,25 @@
 					<li><a href="landing.html" class="button next">Get Started</a></li>
 				</ul>
 			</div>
+		</section>
+		<!-- three -->
+		<section id="three">
+			{% from "_macro.html" import show_test %}
+			{{ show_test(comment) }}
+			<!-- this block calls macro_forms.html to import
+		 		 the function -->
+			<!--  from file_name import function_name -->
+			{% from "macro_forms.html" import render_field %}
+			<!-- flask forms always needs to be called from
+			     inside a form tag -->
+			<form>
+			<!-- {{ macro_name(field_name) }} -->
+			{{ render_field(form.username)}}
+			{{ render_field(form.email)}}
+			{{ render_field(form.date)}}
+			</form>
+
+
 		</section>
 
 </div>

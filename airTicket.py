@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3.6
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -9,11 +9,12 @@ app = Flask(__name__, static_url_path='/static')
 @app.route('/')
 def index():
     ticketform = forms.TicketForm()
-    return render_template('index.html', title = airTicket, form = ticketform)
+    comment = "macro test"
+    return render_template('index.html', comment = comment, form = ticketform)
 
 @app.route('/tickets')
 def generic():
-    return render_template('generic.html')
+    return render_template('ticket.html')
 
 
 @app.route('/params')
