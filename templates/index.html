@@ -5,7 +5,7 @@
 <section id="banner" class="major">
 	<div class="inner">
 		<header class="major">
-			<h1>Hi, welcome to airTicket<h1>
+			<h1>Hi, welcome to {{ title }}<h1>
 		</header>
 		<div class="content">
 			<p> the new way to buy airlines ticket is easy as a click<br />
@@ -81,7 +81,7 @@
 		<section id="two">
 			<div class="inner">
 				<header class="major">
-					<h2>AIRTICKET</h2>
+					<h2>{{ title }}</h2>
 				</header>
 				<p>Get your tickets now!</p>
 				<ul class="actions">
@@ -89,25 +89,11 @@
 				</ul>
 			</div>
 		</section>
-		<!-- three -->
+		<!-- three
 		<section id="three">
 			{% from "_macro.html" import show_test %}
-			{{ show_test(comment) }}
-			<!-- this block calls macro_forms.html to import
-		 		 the function -->
-			<!--  from file_name import function_name -->
-			{% from "macro_forms.html" import render_field %}
-			<!-- flask forms always needs to be called from
-			     inside a form tag -->
-			<form>
-			<!-- {{ macro_name(field_name) }} -->
-			{{ render_field(form.username)}}
-			{{ render_field(form.email)}}
-			{{ render_field(form.date)}}
-			</form>
-
-
-		</section>
+			{{ show_test(title) }}
+		</section> -->
 
 </div>
 {% endblock %}

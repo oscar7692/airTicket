@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% block qatar %}
+
+<div id="main" class="alt">
+	<!-- One -->
+		<section id="one">
+			<div class="inner">
+				<header class="major">
+					<h1>Generic</h1>
+				</header>
+				<span class="image main"><img src="/static/images/pic11.jpg" alt="" /></span>
+				<p>descripccion de la aerolinea.</p>
+			</div>
+		</section>
+    <!-- form section -->
+        <section id="two">
+            <!-- this block calls macro_forms.html to import
+		 		 the function
+                 from file_name import function_name -->
+            {% from "macro_forms.html" import render_field %}
+            <!-- flask forms always needs to be called from
+                     inside a form tag -->
+            <form>
+              <div class="row">
+                <div class="col">
+                    {{ render_field(form.username)}}
+                </div>
+                <div class="col">
+                    {{ render_field(form.email)}}
+                </div>
+                <div class="col">
+                    {{ render_field(form.date)}}
+                </div>
+              </div>
+            </form>
+        </section>
+</div>
+{% endblock %}
