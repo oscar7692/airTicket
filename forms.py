@@ -11,3 +11,7 @@ class TicketForm(Form):
                                               ' empty!')])
     email = EmailField('Email address')
     date = DateField('Travel date')
+    carddetail = StringField('card number',
+                             [validators.length(min=16, max=16,
+                                                message='field cannot sent'
+                                                ' empty')])
