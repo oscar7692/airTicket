@@ -29,6 +29,7 @@ def qatar():
         print(qatar_ticket.username.data)
         print(qatar_ticket.email.data)
         print(qatar_ticket.date.data)
+        print(qatar_ticket.carddetail.data)
     return render_template('qatar_ticket.html', title=title, form=qatar_ticket)
 
 
