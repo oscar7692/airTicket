@@ -2,10 +2,13 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask_wtf import CSRFProtect
 import forms
 
 
 app = Flask(__name__, static_url_path='/static')
+app.secret_key = 'my_secret_key'
+csrf_token = CSRFProtect(app)
 
 
 @app.route('/')
@@ -30,6 +33,8 @@ def qatar():
         print(qatar_ticket.email.data)
         print(qatar_ticket.date.data)
         print(qatar_ticket.carddetail.data)
+    else:
+        print('form error')
     return render_template('qatar_ticket.html', title=title, form=qatar_ticket)
 
 
