@@ -42,8 +42,9 @@ class TicketForm(Form):
                                                     'characters')
                               ])
     date = DateField('Travel date (YYYY-MM-DD)', format='%Y-%m-%d')
-    pasenger = IntegerField('Number of passengers' [validators.Required(
-        message='number of passengers is required')])
+    pasenger = IntegerField('Number of passengers',
+                            [validators.Required(message='number of '
+                                                 'passengers is required')])
     carddetail = StringField('card number',
                              [
                                  validators.Required(message='card data is '
