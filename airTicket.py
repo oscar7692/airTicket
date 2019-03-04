@@ -2,7 +2,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-from flask_wtf import CSRFProtect
+from flask_wtf.csrf import CSRFProtect
 import forms
 
 
