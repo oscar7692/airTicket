@@ -5,7 +5,7 @@ from flask import render_template, redirect
 from flask import request
 from flask import url_for
 from flask_wtf import CSRFProtect
-import forms
+# import forms
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -17,20 +17,25 @@ csrf_token = CSRFProtect(app)
 
 @app.route('/')
 def index():
-    ticketform = forms.TicketForm()
+    # ticketform = forms.TicketForm()
     title = "airTicket"
     # back_to_home = redirect(url_for('index'),302)
     return render_template('index.html', title=title)
 
 
-@app.route('/emirates')
+@app.route('/emirates', methods=["GET", "POST"  ])
 def emirates():
     title = "Emirates Airlines"
-    return render_template('emirates_ticket.html', title=title)
+    if request.method == "POST":
+        emirates = mongo.db.emirates
+        data = request.form.to_dict()
+        emirates.insert({"emirates": data})
+        print("JSON", data)
+    return render_template('emirates.html', title=title)
 
 
-@app.route('/qatar2', methods=['GET', 'POST'])
-def qatar2():
+@app.route('/qatar', methods=['GET', 'POST'])
+def qatar():
     title = "Qatar Airlines"
     # qatar_ticket = forms.TicketForm(request.form)
     if request.method == 'POST':
@@ -38,7 +43,7 @@ def qatar2():
         data = request.form.to_dict()
         qatar.insert({'qatar2': data})
         print('JSON', data)
-    return render_template('qatar2.html', title=title)
+    return render_template('qatar.html', title=title)
 
 
 @app.route('/singapore', methods=['GET', 'POST'])
@@ -49,7 +54,7 @@ def singapore():
         data = request.form.to_dict()
         singapore.insert({'singapore':data})
         print('JSON', data)
-    return render_template('singapore_ticket.html', title=title)
+    return render_template('singapore.html', title=title)
 # test function
 # @app.route('/params')
 # def parameters():
