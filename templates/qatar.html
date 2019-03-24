@@ -14,28 +14,9 @@
 		</section>
 <!-- form section -->
 		<section id="two">
-			<!-- this block calls macro_forms.html to import the function from
-            file_name import function_name -->
-            <!-- flask forms always needs to be called from inside a form tag-->
             <form name="qatarairline" id="qatarform" method="POST">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <div class="row control-group">
-                    <div class="form-group col-xs-12 floating-label-form-group controls">
-						<input type="text" class="consent no-border text-center mb-3" placeholder="nombre completo" id="comp_name" name="comp_name">
-                          <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="col control-group">
-                    </div>
-                    <div class="col control-group">
-                    </div>
-					<div class="col control-group">
-					</div>
-					<div class="col control-group">
 
-					</div>
-					<div class="col control-group">
-					</div>
-                </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12">
                         <button type="submit" class="btn btn-default" name="send">send</button>
