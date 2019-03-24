@@ -14,25 +14,8 @@
 		</section>
 <!-- form section -->
         <section id="two">
-            <!-- this block calls macro_forms.html to import the function from
-            file_name import function_name -->
-            {% from "macro_forms.html" import render_field %}
-            <!-- flask forms always needs to be called from inside a form tag-->
             <form name="qatarairline" id="qatarform" method="POST">
                 <div class="row control-group">
-                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                          {{ render_field(form.username, class='form-control')}}
-                          <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="col control-group">
-                        {{ render_field(form.email, class='form-control')}}
-                    </div>
-                    <div class="col control-group">
-						{{ render_field(form.date, class='form-control')) }}
-                    </div>
-					<div class="col control-group">
-						{{ render_field(form.carddetail, class='form-control')) }}
-					</div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12">
