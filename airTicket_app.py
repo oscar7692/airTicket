@@ -1,5 +1,6 @@
 #!/usr/bin/python3.6
 from flask import Flask
+from flask_mail import Message
 from flask_pymongo import PyMongo
 from flask import render_template, redirect
 from flask import request
@@ -22,8 +23,27 @@ def index():
     # back_to_home = redirect(url_for('index'),302)
     return render_template('index.html', title=title)
 
+@app.route('/ana', methods=["GET", "POST"])
+def ana():
+    title = "Emirates Airlines"
+    if request.method == "POST":
+        emirates = mongo.db.emirates
+        data = request.form.to_dict()
+        emirates.insert({"ana": data})
+        print("JSON", data)
+    return render_template('ana.html', title=title)
 
-@app.route('/emirates', methods=["GET", "POST"  ])
+@app.route('/cathay', methods=["GET", "POST"])
+def cathay():
+    title = "Emirates Airlines"
+    if request.method == "POST":
+        emirates = mongo.db.emirates
+        data = request.form.to_dict()
+        emirates.insert({"cathay": data})
+        print("JSON", data)
+    return render_template('cathay.html', title=title)
+
+@app.route('/emirates', methods=["GET", "POST"])
 def emirates():
     title = "Emirates Airlines"
     if request.method == "POST":
@@ -33,6 +53,15 @@ def emirates():
         print("JSON", data)
     return render_template('emirates.html', title=title)
 
+@app.route('/eva', methods=['GET', 'POST'])
+def eva():
+    title = "Singapore Airlines"
+    if request.method == 'POST':
+        singapore = mongo.db.singapore
+        data = request.form.to_dict()
+        singapore.insert({'eva':data})
+        print('JSON', data)
+    return render_template('eva.html', title=title)
 
 @app.route('/qatar', methods=['GET', 'POST'])
 def qatar():
@@ -41,10 +70,9 @@ def qatar():
     if request.method == 'POST':
         qatar = mongo.db.qatar
         data = request.form.to_dict()
-        qatar.insert({'qatar2': data})
+        qatar.insert({'qatar': data})
         print('JSON', data)
     return render_template('qatar.html', title=title)
-
 
 @app.route('/singapore', methods=['GET', 'POST'])
 def singapore():
@@ -55,6 +83,7 @@ def singapore():
         singapore.insert({'singapore':data})
         print('JSON', data)
     return render_template('singapore.html', title=title)
+
 # test function
 # @app.route('/params')
 # def parameters():
