@@ -3,6 +3,7 @@ Flask==0.12.2
 Flask-Mail
 Flask-PyMongo==2.2.0
 Flask-Session==0.3.1
+flask_wtf
 itsdangerous==0.24
 Jinja2==2.10
 livereload==2.5.2
