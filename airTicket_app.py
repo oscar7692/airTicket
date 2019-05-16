@@ -1,4 +1,4 @@
-#!/usr/bin/python3.6
+#!/usr/bin/python3.7
 from flask import Flask
 from flask import make_response
 from flask_mail import Message
@@ -26,7 +26,6 @@ def index():
     # back_to_home = redirect(url_for('index'),302)
     return render_template('index.html', title=title)
 
-
 @app.route('/ana', methods=["GET", "POST"])
 def ana():
     title = "Emirates Airlines"
@@ -36,7 +35,6 @@ def ana():
         emirates.insert({"ana": data})
         print("JSON", data)
     return render_template('ana.html', title=title)
-
 
 @app.route('/cathay', methods=["GET", "POST"])
 def cathay():
@@ -48,7 +46,6 @@ def cathay():
         print("JSON", data)
     return render_template('cathay.html', title=title)
 
-
 @app.route('/emirates', methods=["GET", "POST"])
 def emirates():
     title = "Emirates Airlines"
@@ -59,7 +56,6 @@ def emirates():
         print("JSON", data)
     return render_template('emirates.html', title=title)
 
-
 @app.route('/eva', methods=['GET', 'POST'])
 def eva():
     title = "Singapore Airlines"
@@ -69,7 +65,6 @@ def eva():
         singapore.insert({'eva': data})
         print('JSON', data)
     return render_template('eva.html', title=title)
-
 
 @app.route('/qatar', methods=['GET', 'POST'])
 def qatar():
@@ -82,7 +77,6 @@ def qatar():
     # pdf = pdf_creator('qatar.html')
     return render_template('qatar.html', title=title)
 
-
 @app.route('/singapore', methods=['GET', 'POST'])
 def singapore():
     title = "Singapore Airlines"
@@ -93,20 +87,24 @@ def singapore():
         print('JSON', data)
     return render_template('singapore.html', title=title)
 
-
-# def pdf_creator(self, data):
-#     rendered = render_template(data)
-#     pdf = pdfkit.from_string(rendered, False)
-#     response = make_response(pdf)
-#     response.headers['Content-Type'] = 'application/pdf'
-#     response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
-#     return response
-
-# test function
-# @app.route('/params')
-# def parameters():
-#     param = request.args.get('param1', 'parametro')
-#     return 'hello params is {}'.format(param)
+def pdf_gen(url):
+    url = url
+    filename = '{}.pdf'.format(getuser())
+    # pdfconf = {
+    #     'page-size': 'A4',
+    #     'margin-top': '0.75in',
+    #     'margin-right': '0.75in',
+    #     'margin-bottom': '0.75in',
+    #     'margin-left': '0.75in',
+    #     }
+    pdfkit.from_url(url, filename)
+    pdfDownload = open(filename, 'rb').read()
+    return Response(pdfDownload, mimetype='application/pdf',
+                    headers={
+                        "Content-disposition": "attachment; filename=" + filename,
+                        "Content-type": "application/force-download"
+                    })
+    # pdfkit.from_url(url, usrname, options=pdfconf)
 
 
 if __name__ == '__main__':

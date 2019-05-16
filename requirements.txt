@@ -8,7 +8,7 @@ itsdangerous==0.24
 Jinja2==2.10
 livereload==2.5.2
 MarkupSafe==1.0
-pdfkit
+pdfkit==0.6.1
 pi==0.1.2
 pymongo==3.7.2
 PyMySQL==0.8.0
