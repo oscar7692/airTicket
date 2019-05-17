@@ -5,8 +5,11 @@ from flask_mail import Message
 from flask_pymongo import PyMongo
 from flask import render_template, redirect
 from flask import request
+from flask import Response
 from flask import url_for
 from flask_wtf import CSRFProtect
+from flask_wkhtmltopdf import Wkhtmltopdf
+from getpass import getuser
 import pdfkit
 # import forms
 
@@ -17,6 +20,7 @@ app.config['MONGO_DBNAME'] = 'airTicketdb'
 app.config["MONGO_URI"] = "mongodb://localhost:27017/airTicketdb"
 mongo = PyMongo(app)
 csrf_token = CSRFProtect(app)
+wkhtmltopdf = Wkhtmltopdf(app)
 
 
 @app.route('/')
@@ -28,21 +32,21 @@ def index():
 
 @app.route('/ana', methods=["GET", "POST"])
 def ana():
-    title = "Emirates Airlines"
+    title = "Ana Airlines"
     if request.method == "POST":
-        emirates = mongo.db.emirates
+        ana = mongo.db.ana
         data = request.form.to_dict()
-        emirates.insert({"ana": data})
+        ana.insert({"ana": data})
         print("JSON", data)
     return render_template('ana.html', title=title)
 
 @app.route('/cathay', methods=["GET", "POST"])
 def cathay():
-    title = "Emirates Airlines"
+    title = "Cathay Airlines"
     if request.method == "POST":
-        emirates = mongo.db.emirates
+        cathay = mongo.db.cathay
         data = request.form.to_dict()
-        emirates.insert({"cathay": data})
+        cathay.insert({"cathay": data})
         print("JSON", data)
     return render_template('cathay.html', title=title)
 
@@ -58,11 +62,11 @@ def emirates():
 
 @app.route('/eva', methods=['GET', 'POST'])
 def eva():
-    title = "Singapore Airlines"
+    title = "Eva Airlines"
     if request.method == 'POST':
-        singapore = mongo.db.singapore
+        eva = mongo.db.eva
         data = request.form.to_dict()
-        singapore.insert({'eva': data})
+        eva.insert({'eva': data})
         print('JSON', data)
     return render_template('eva.html', title=title)
 
@@ -74,7 +78,6 @@ def qatar():
         data = request.form.to_dict()
         qatar.insert({'qatar': data})
         print('JSON', data)
-    # pdf = pdf_creator('qatar.html')
     return render_template('qatar.html', title=title)
 
 @app.route('/singapore', methods=['GET', 'POST'])
@@ -87,6 +90,14 @@ def singapore():
         print('JSON', data)
     return render_template('singapore.html', title=title)
 
+@app.route('/preview', methods=['GET','POST'])
+def preview():
+    if request.method == 'POST':
+        result = request.form
+        pdf = pdf_gen('127.0.0.1:5000:/preview.html')
+        return render_template("preview.html", result=result)
+
+#pdfkit
 def pdf_gen(url):
     url = url
     filename = '{}.pdf'.format(getuser())
@@ -104,7 +115,13 @@ def pdf_gen(url):
                         "Content-disposition": "attachment; filename=" + filename,
                         "Content-type": "application/force-download"
                     })
-    # pdfkit.from_url(url, usrname, options=pdfconf)
+
+#Wkhtmltopdf
+# pdf = Wkhtmltopdf.render_template_to_pdf('qatar.html',
+#                                             download=True,
+#                                             save=False,
+#                                             param=data)
+
 
 
 if __name__ == '__main__':
