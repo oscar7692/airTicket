@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% block qatar %}
+   <body>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <table border = 1>
+         {% for key, value in result.items() %}
+            <tr>
+               <th> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+         {% endfor %}
+      </table>
+   </body>
+{% endblock %}
