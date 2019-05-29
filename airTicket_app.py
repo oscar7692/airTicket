@@ -2,6 +2,7 @@
 from flask import Flask
 from flask import make_response
 from flask_mail import Message
+from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 from flask import render_template, redirect
 from flask import request
@@ -90,12 +91,35 @@ def singapore():
         print('JSON', data)
     return render_template('singapore.html', title=title)
 
-@app.route('/preview', methods=['GET','POST'])
+# @app.route('/preview', methods=['GET','POST'])
+# def preview():
+#     if request.method == 'POST':
+#         result = request.form
+#         pdf = pdf_gen('127.0.0.1:5000:/preview.html')
+#         return render_template("preview.html", result=result)
+
+@app.route("/preview")
 def preview():
-    if request.method == 'POST':
-        result = request.form
-        pdf = pdf_gen('127.0.0.1:5000:/preview.html')
-        return render_template("preview.html", result=result)
+    data_query = mongo.db.qatar
+    # datalist = [data for data in data_query.find()]
+    # datalist = datalist[0]["qatar"]
+    data_arr = []
+    for data in data_query.find():
+        print(data['_id'])
+        data['qatar']['id']=data['_id']
+        data_arr.append(data["qatar"])
+        endData = render_template("preview.html", data=data_arr)
+    return endData
+
+@app.route("/<id>")
+def printer(id):
+    print(id)
+    data_query = mongo.db.qatar
+    data = data_query.find_one({'_id':ObjectId(id)})
+    print(data)
+    # pdf = pdf_gen("http://localhost:5000/{}".format(id))
+    endData = render_template("printer.html", data=data['qatar'])
+    return endData
 
 #pdfkit
 def pdf_gen(url):

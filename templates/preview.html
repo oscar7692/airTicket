@@ -1,14 +1,44 @@
 {% extends 'base/base.html' %}
-{% block qatar %}
-   <body>
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <table border = 1>
-         {% for key, value in result.items() %}
-            <tr>
-               <th> {{ key }} </th>
-               <td> {{ value }} </td>
-            </tr>
-         {% endfor %}
-      </table>
-   </body>
+{% block preview %}
+
+<div class="data-container">
+  
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>comp_name</th>
+      </tr>
+    </thead>
+    {% if data %}
+      <tbody>
+      {% for d in data %}
+        <tr>
+          <td>{{d.time}}</td>
+          <td>{{d.comp_name}}</td>
+          <td>{{d.age}}</td>
+          <td>{{d.sex}}</td>
+          <td>{{d.street}}</td>
+          <td>{{d.no_street}}</td>
+          <td>{{d.colony}}</td>
+          <td>{{d.zip_code}}</td>
+          <td>{{d.town}}</td>
+          <td>{{d.state}}</td>
+          <td>{{d.tel}}</td>
+          <td>{{d.res}}</td>
+          <td>{{d.res_comp_name}}</td>
+          <td>{{d.enc_comp_name}}</td>
+          <td>{{d.sec_comp_name}}</td>
+          <td>{{d.pros}}</td>
+          <td>
+            <a href="{{ url_for('printer', id=d.id)}}"><button type="button">PRINTER</button></a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    {% endif %}
+  </table>
+</div>
+
 {% endblock %}
